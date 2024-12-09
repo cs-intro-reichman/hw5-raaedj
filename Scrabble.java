@@ -48,7 +48,7 @@ public class Scrabble {
 
 	// Checks if the given word is in the dictionary.
 	public static boolean isWordInDictionary(String word) {
-		if(WORDS_FILE.contains(word)) return true;
+		if(WORDS_FILE.contains(word) && word != "") return true;
 		else return false;
 	}
 	
@@ -57,7 +57,8 @@ public class Scrabble {
 	// If the word includes the sequence "runi", adds 1000 points to the game.
 	public static int wordScore(String word) {
 		int score = 0;
-		if(MyString.subsetOf(word, createHand())){
+	    String hand = createHand();
+		if(MyString.subsetOf(word, hand)){
            if(WORDS_FILE.contains(word)){
 			for (int i = 0; i < word.length(); i++){
 				char calculatedLetter = word.charAt(i);
@@ -72,44 +73,46 @@ public class Scrabble {
 					case 's':
 					case 't':
 					case 'u':
-					score +=1; break;
+					score += 1;
+					 break;
 					case 'd':
 					case 'g':
-					score +=2; break;
+					score += 2; 
+					break;
 					case 'b':
 					case 'c':
 					case 'm':
 					case 'p':
-					score +=3; break;
+					score += 3;
+					 break;
 					case 'f':
 					case 'h':
 					case 'v':
 					case 'w':
 					case 'y':
-						score +=4; break;
+						score +=4; 
+						break;
 					case 'k':
-						score +=5; break;
+						score +=5; 
+						break;
 					case 'j':
 					case 'x':
-						score +=8; break;
+						score +=8; 
+						break;
 					case 'q':
 					case 'z':
-						score +=10; break;
+						score +=10; 
+					    break;
 					default: break;
 				}
 			}
-			score += (score * word.length());
+			score = score + (score * word.length());
 		   }
-		   else{
-			 System.out.println("No such word in the dictionary. Try again.");
-		   }
-		}
-		else{
-			System.out.println("Invalid word. Try again.");
 		}
 		if(word.length() == HAND_SIZE) score += 50;
 		if(MyString.subsetOf("runi", word)) score += 1000;
 		return score;
+
 	}
 
 	// Creates a random hand of length (HAND_SIZE - 2) and then inserts
@@ -117,8 +120,8 @@ public class Scrabble {
 	// (these two vowels make it easier for the user to construct words)
 	public static String createHand() {
 		String hand = MyString.randomStringOfLetters(HAND_SIZE - 2);
-		MyString.insertRandomly('a', hand);
-		MyString.insertRandomly('e', hand);
+		hand = MyString.insertRandomly('a', hand);
+		hand = MyString.insertRandomly('e', hand);
 		return hand;
 	}
 	
