@@ -63,7 +63,7 @@ public class MyString {
             if(i == str.length() - 1) newStr += str.charAt(i);
             else newStr += str.charAt(i) + " ";
         }
-        return newStr;
+        return newStr.trim();
     }
   
     /**
@@ -95,20 +95,15 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
-        StringBuilder removed = new StringBuilder();
+        StringBuilder result = new StringBuilder(str1);
         for (int i = 0; i < str2.length(); i++) {
-            boolean found = false;
-            for (int j = 0; j < str1.length(); j++) {
-                if (str2.charAt(i) == str1.charAt(j)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                removed.append(str2.charAt(i));
+            char toRemove = str2.charAt(i);
+            int index = result.indexOf(String.valueOf(toRemove));
+            if (index != -1) {
+                result.deleteCharAt(index);
             }
         }
-        return removed.toString();
+        return result.toString();
     }
 
     /**
