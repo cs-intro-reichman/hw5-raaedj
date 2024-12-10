@@ -98,31 +98,34 @@ public class Scrabble {
 	}
 	
 
-   public static void playHand(String hand) {
-			int totalScore = 0;
-			In in = new In();
-			while (!hand.isEmpty()) {
-				System.out.println("Current Hand: " + MyString.spacedString(hand));
-				System.out.println("Enter a word, or '.' to finish playing this hand:");
-				String word = in.readString();
-		
-				if (word.equals(".")) break;
-		
-				if (!subsetOf(word, hand)) {
-					System.out.println("Invalid word. Try again.");
-				} else if (!isWordInDictionary(word)) {
-					System.out.println("No such word in the dictionary. Try again.");
-				} else {
-					int score = wordScore(word);
-					totalScore += score;
-					System.out.println(word + " -> score: " + score);
-					hand = MyString.remove(hand, word);
-				}
-				System.out.println();
+	public static void playHand(String hand) {
+		int totalScore = 0;
+		In in = new In();
+		hand = hand.toLowerCase().replaceAll("[^a-z]", "");
+	
+		while (!hand.isEmpty()) {
+			System.out.println("Current Hand: " + MyString.spacedString(hand));
+			System.out.println("Enter a word, or '.' to finish playing this hand:");
+			String word = in.readString().trim();
+			word = word.toLowerCase().replaceAll("[^a-z]", "");
+	
+			if (word.equals(".")) break;
+	
+			if (!subsetOf(word, hand)) {
+				System.out.println("Invalid word. Try again.");
+			} else if (!isWordInDictionary(word)) {
+				System.out.println("No such word in the dictionary. Try again.");
+			} else {
+				int score = wordScore(word);
+				totalScore += score;
+				System.out.println(word + " -> score: " + score);
+				hand = MyString.remove(hand, word);
 			}
-		
-			System.out.println("End of hand. Total score: " + totalScore + " points");
+			System.out.println();
 		}
+	
+		System.out.println("End of hand. Total score: " + totalScore + " points");
+	}
 	
     public static void playGame() {
         init();
