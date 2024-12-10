@@ -98,12 +98,12 @@ public class Scrabble {
 						score +=10; break;
 					default: break;
 				}
+				gameScore = gameScore + (score * word.length());
 			}
-			gameScore = gameScore + (score * word.length());
 		   }
-		if(word.length() == HAND_SIZE) score += 50;
-		if(MyString.subsetOf("runi", word)) score += 1000;
-		return score;
+		if(word.length() == HAND_SIZE) gameScore += 50;
+		if(MyString.subsetOf("runi", word)) gameScore += 1000;
+		return gameScore;
 
 	}
 
