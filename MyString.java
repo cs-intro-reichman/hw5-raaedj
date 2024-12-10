@@ -8,6 +8,7 @@ public class MyString {
         System.out.println(countChar(hello, 'l'));
         System.out.println(countChar(hello, 'z'));
         System.out.println(spacedString(hello));
+        System.out.println(randomStringOfLetters(6));
         //// Put your other tests here.
     }
 
@@ -20,8 +21,11 @@ public class MyString {
      * @return the number of times c appears in str
      */
     public static int countChar(String str, char ch) {
-        //// Replace the following statement with your code
-        return 0;
+        int counter = 0;
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) == ch) counter++;
+        }
+        return counter;
     }
 
     /** Returns true if str1 is a subset string str2, false otherwise
@@ -36,8 +40,13 @@ public class MyString {
      * @return true is str1 is a subset of str2, false otherwise
      */
     public static boolean subsetOf(String str1, String str2) {
-         //// Replace the following statement with your code
-        return false;
+        int counter = 0;
+         for(int i = 0; i < str2.length(); i++){
+            if(i >= str1.length()) break;
+            else if(countChar(str2, str1.charAt(i)) == countChar(str1, str2.charAt(i))) counter++;
+         }
+         if(counter == str1.length() || str2.contains(str1)) return true;
+         return false;
     }
 
     /** Returns a string which is the same as the given string, with a space
@@ -49,8 +58,12 @@ public class MyString {
      * @return a string consisting of the characters of str, separated by spaces.
      */
     public static String spacedString(String str) {
-        //// Replace the following statement with your code
-        return null;
+        String newStr = " ";
+        for(int i = 0; i < str.length(); i++){
+            if(i == str.length() - 1) newStr += str.charAt(i);
+            else newStr += str.charAt(i) + " ";
+        }
+        return newStr.trim();
     }
   
     /**
@@ -64,8 +77,12 @@ public class MyString {
      * @return a randomly generated string, consisting of 'n' lowercase letters
      */
     public static String randomStringOfLetters(int n) {
-        //// Replace the following statement with your code
-        return null;
+        String ran = "";
+        for(int i = 0; i < n; i++){
+            char ranNum = (char)(Math.floor(97 + Math.random() * 26));
+            ran += ranNum;
+        }
+        return ran;
     }
 
     /**
@@ -78,8 +95,15 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
-       //// Replace the following statement with your code
-        return null;
+        StringBuilder result = new StringBuilder(str1);
+        for (int i = 0; i < str2.length(); i++) {
+            char toRemove = str2.charAt(i);
+            int index = result.indexOf(String.valueOf(toRemove));
+            if (index != -1) {
+                result.deleteCharAt(index);
+            }
+        }
+        return result.toString();
     }
 
     /**
