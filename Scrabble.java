@@ -116,13 +116,13 @@ public class Scrabble {
 			} else {
 				int score = wordScore(word);
 				totalScore += score;
-				System.out.println(word + " earned " + score + " points. Score: " + totalScore + " points\n");
+				System.out.println(word + " earned " + score + " points. Score: " + totalScore + " points");
 				hand = MyString.remove(hand, word);
 			}
 			System.out.println();
 		}
 	
-		System.out.println("End of hand. Total score: " + totalScore + " points");
+		System.out.print("End of hand. Total score: " + totalScore + " points");
 	}
 	
     public static void playGame() {
