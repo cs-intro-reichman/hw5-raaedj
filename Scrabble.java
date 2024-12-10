@@ -74,32 +74,37 @@ public class Scrabble {
     }
 
    public static void playHand(String hand) {
-			int totalScore = 0;
-			In in = new In();
+	int totalScore = 0;
+    In in = new In(); // Assuming this is a custom input class
+
+    while (!hand.isEmpty()) {
+        System.out.println("Current Hand: " + MyString.spacedString(hand));
+        System.out.println("Enter a word, or '.' to finish playing this hand:");
+        String word = in.readString().trim(); // Reads input
+
+        // End game if user enters '.'
+        if (word.equals(".")) break;
+
+        // Validate the word
+        if (!MyString.subsetOf(word, hand)) {
+            System.out.println("Invalid word. Try again.");
+        } else if (!isWordInDictionary(word)) {
+            System.out.println("No such word in the dictionary. Try again.");
+        } else {
+            // Calculate score and update hand
+            int score = wordScore(word);
+            totalScore += score;
+            System.out.println(word + " -> score: " + score + " points.");
+            hand = MyString.remove(hand, word); // Remove letters of the word from the hand
+        }
+
+        System.out.println();
+    }
+
+    // End of hand
+    System.out.println("End of hand. Total score: " + totalScore + " points.");
+}
 		
-			while (!hand.isEmpty()) {
-				System.out.println("Current Hand: " + MyString.spacedString(hand));
-				System.out.println("Enter a word, or '.' to finish playing this hand:");
-				String word = in.readString();
-		
-				if (word.equals(".")) break;
-		
-				if (!MyString.subsetOf(word, hand)) {
-					System.out.println("Invalid word. Try again.");
-				} else if (!isWordInDictionary(word)) {
-					System.out.println("No such word in the dictionary. Try again.");
-				} else {
-					int score = wordScore(word);
-					totalScore += score;
-					// Print in the expected format for the test case
-					System.out.println(word + " -> score: " + score);
-					hand = MyString.remove(hand, word);
-				}
-				System.out.println();
-			}
-		
-			System.out.println("End of hand. Total score: " + totalScore + " points");
-		}
 	
     public static void playGame() {
         init();
@@ -120,10 +125,10 @@ public class Scrabble {
     }
 
 	public static void main(String[] args) {
-		//testBuildingTheDictionary();  
-		//testScrabbleScore();    
-		//testCreateHands();  
-	    //testPlayHands();
+		testBuildingTheDictionary();  
+		testScrabbleScore();    
+		testCreateHands();  
+	    testPlayHands();
 		playGame();
 	}
 
