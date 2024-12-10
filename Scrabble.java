@@ -46,109 +46,80 @@ public class Scrabble {
         System.out.println(NUM_OF_WORDS + " words loaded.");
 	}
 
-	// Checks if the given word is in the dictionary.
 	public static boolean isWordInDictionary(String word) {
-		if(WORDS_FILE.contains(word) && word != "") return true;
-		else return false;
-	}
-	
-	// Returns the Scrabble score of the given word.
-	// If the length of the word equals the length of the hand, adds 50 points to the score.
-	// If the word includes the sequence "runi", adds 1000 points to the game.
-	public static int wordScore(String word) {
-		int ans = 0;
-		for (int i = 0; i < word.length(); i++) {
-			char c = word.charAt(i);
-			ans += SCRABBLE_LETTER_VALUES[c - 'a'];
-		}
-		ans *= word.length();
-		if (word.length() == 10){
-			ans += 50;
-		} 
-		if(MyString.subsetOf("RUNI", word)){
-			ans += 1000;
-		}
-		return ans;
-	}
+        for (int i = 0; i < NUM_OF_WORDS; i++) {
+            if (DICTIONARY[i].equals(word)) return true;
+        }
+        return false;
+    }
 
-	// Creates a random hand of length (HAND_SIZE - 2) and then inserts
-	// into it, at random indexes, the letters 'a' and 'e'
-	// (these two vowels make it easier for the user to construct words)
-	public static String createHand() {
-		String hand = MyString.randomStringOfLetters(HAND_SIZE - 2);
-		hand = MyString.insertRandomly('a', hand);
-		hand = MyString.insertRandomly('e', hand);
-		return hand;
-	}
-	
-    // Runs a single hand in a Scrabble game. Each time the user enters a valid word:
-    // 1. The letters in the word are removed from the hand, which becomes smaller.
-    // 2. The user gets the Scrabble points of the entered word.
-    // 3. The user is prompted to enter another word, or '.' to end the hand. 
-	public static void playHand(String hand) {
-		createHand();
-		int n = hand.length();
-		int score = 0;
-		In in = new In();
-		while (hand.length() > 0) {
-			System.out.println("Current Hand: " + MyString.spacedString(hand));
-			System.out.println("Enter a word, or '.' to finish this hand:");
-			String input = in.readString();
-			if (input.equals(".")) {
-				break;
-			}
-			if (!MyString.subsetOf(input, hand)) {
-				System.out.println("Invalid word. Try again.");
-			} else {
-				if (!isWordInDictionary(input)) {
-				       System.out.println("No such word in the dictionary. Try again.");
-			    } else {
-				    int wordScore = wordScore(input);
-				    score += wordScore;
-				    System.out.println(input + " earned " + score + " points. Total: " + score + " points");
-				    hand = MyString.remove(hand, input);
-			    }
-			System.out.println();
-		    }
-		}
-		if (hand.length() == 0) {
-	        System.out.println("Ran out of letters. Total score: " + score + " points");
-		} else {
-			System.out.println("End of hand. Total score: " + score + " points");
-		}
-	}
+    public static int wordScore(String word) {
+        int score = 0;
+        for (char c : word.toCharArray()) {
+            score += SCRABBLE_LETTER_VALUES[c - 'a'];
+        }
+        score *= word.length();
+        if (word.length() == HAND_SIZE) score += 50;
+        if (word.contains("r") && word.contains("u") && word.contains("n") && word.contains("i")) {
+            score += 1000;
+        }
+        return score;
+    }
 
-	// Plays a Scrabble game. Prompts the user to enter 'n' for playing a new hand, or 'e'
-	// to end the game. If the user enters any other input, writes an error message.
-	public static void playGame() {
-		// Initializes the dictionary
-    	init();
-    	boolean firstHand = true;
-		String hand = "";
-		In in = new In();
-    	while(true) {
-    		System.out.println("Enter n to deal a new hand, or e to end game:");
-    		String input = in.readString();
-    		if (input.equals("n")) {
-                firstHand = false;
-    			hand = MyString.randomStringOfLetters(HAND_SIZE);
-    			playHand(hand);
-    		}
-    		 else if (input.equals("e")) {
-    			break;
-    		} else {
-    			System.out.println("Invalid command.");
-    		}
-			System.out.println();
-		}
-	}
+    public static String createHand() {
+        String hand = MyString.randomStringOfLetters(HAND_SIZE - 2);
+        hand = MyString.insertRandomly('a', hand);
+        hand = MyString.insertRandomly('e', hand);
+        return hand;
+    }
+
+    public static void playHand(String hand) {
+        int totalScore = 0;
+        In in = new In();
+        while (!hand.isEmpty()) {
+            System.out.println("Current Hand: " + MyString.spacedString(hand));
+            System.out.println("Enter a word, or '.' to finish playing this hand:");
+            String word = in.readString();
+            if (word.equals(".")) break;
+            if (!MyString.subsetOf(word, hand)) {
+                System.out.println("Invalid word. Try again.");
+            } else if (!isWordInDictionary(word)) {
+                System.out.println("No such word in the dictionary. Try again.");
+            } else {
+                int score = wordScore(word);
+                totalScore += score;
+                System.out.println(word + " earned " + score + " points. Total: " + totalScore + " points.");
+                hand = MyString.remove(hand, word);
+            }
+            System.out.println();
+        }
+        System.out.println("End of hand. Total score: " + totalScore + " points.");
+    }
+
+    public static void playGame() {
+        init();
+        In in = new In();
+        String hand = "";
+        while (true) {
+            System.out.println("Enter n to deal a new hand, or e to end game:");
+            String choice = in.readString();
+            if (choice.equals("n")) {
+                hand = createHand();
+                playHand(hand);
+            } else if (choice.equals("e")) {
+                break;
+            } else {
+                System.out.println("Invalid command.");
+            }
+        }
+    }
 
 	public static void main(String[] args) {
 		//testBuildingTheDictionary();  
 		//testScrabbleScore();    
 		//testCreateHands();  
 	    //testPlayHands();
-		//playGame();
+		playGame();
 	}
 
 	public static void testBuildingTheDictionary() {
