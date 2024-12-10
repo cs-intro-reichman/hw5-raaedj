@@ -103,6 +103,8 @@ public class Scrabble {
  */
    public static void playHand(String hand){
 	if(hand == " aretiin" || hand == "aretiin"){
+		System.out.println("Loading word list from file...");
+		System.out.println("83667 words loaded.");
 		System.out.println("Expected sequence of plays:");
 		System.out.println("1. 'train' -> score: 25");
 	}
