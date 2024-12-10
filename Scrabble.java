@@ -65,7 +65,7 @@ public class Scrabble {
 		if (word.length() == 10){
 			ans += 50;
 		} 
-		if(MyString.subsetOf("runi", word)){
+		if(MyString.subsetOf("RUNI", word)){
 			ans += 1000;
 		}
 		return ans;
@@ -127,7 +127,7 @@ public class Scrabble {
 		String hand = "";
 		In in = new In();
     	while(true) {
-    		System.out.println("Enter n to deal a new hand, r to replay the last hand, or e to end game:");
+    		System.out.println("Enter n to deal a new hand, or e to end game:");
     		String input = in.readString();
     		if (input.equals("n")) {
                 firstHand = false;
