@@ -56,56 +56,39 @@ public class Scrabble {
 	// If the length of the word equals the length of the hand, adds 50 points to the score.
 	// If the word includes the sequence "runi", adds 1000 points to the game.
 	public static int wordScore(String word) {
-		int score = 0 , gameScore = 0;
-	    String hand = createHand();
-		if(MyString.subsetOf(word, hand) && WORDS_FILE.contains(word.toUpperCase()) && word != ""){
-			for (int i = 0; i < word.length(); i++){
-				score = 0;
-				char calculatedLetter = word.charAt(i);
-				switch (calculatedLetter) {
-					case 'A':
-					case 'E':
-					case 'I':
-					case 'L':
-					case 'N':
-					case 'O':
-					case 'R':
-					case 'S':
-					case 'T':
-					case 'U':
-						score +=1; break;
-					case 'D':
-					case 'G':
-						score +=2; break;
-					case 'B':
-					case 'C':
-					case 'M':
-					case 'P':
-						score +=3; break;
-					case 'F':
-					case 'H':
-					case 'V':
-					case 'W':
-					case 'Y':
-						score +=4; break;
+		if (word == null || word.isEmpty()) return 0;
+		word = word.toUpperCase();
+		String hand = createHand().toUpperCase();
+		int gameScore = 0;
+		if (MyString.subsetOf(word, hand) && WORDS_FILE.contains(word)) {
+			int baseScore = 0;
+			for (int i = 0; i < word.length(); i++) {
+				char letter = word.charAt(i);
+				switch (letter) {
+					case 'A': case 'E': case 'I': case 'L': case 'N': case 'O': case 'R': case 'S': case 'T': case 'U':
+						baseScore += 1; break;
+					case 'D': case 'G':
+						baseScore += 2; break;
+					case 'B': case 'C': case 'M': case 'P':
+						baseScore += 3; break;
+					case 'F': case 'H': case 'V': case 'W': case 'Y':
+						baseScore += 4; break;
 					case 'K':
-						score +=5; break;
-					case 'J':
-					case 'X':
-						score +=8; break;
-					case 'Q':
-					case 'Z':
-						score +=10; break;
-					default: break;
+						baseScore += 5; break;
+					case 'J': case 'X':
+						baseScore += 8; break;
+					case 'Q': case 'Z':
+						baseScore += 10; break;
+					default:
+						break;
 				}
-				gameScore = gameScore + (score * word.length());
 			}
-
-		   }
-		if(word.length() == HAND_SIZE) gameScore += 50;
-		if(MyString.subsetOf("runi", word)) gameScore += 1000;
+			gameScore = baseScore * word.length();
+			if (word.length() == HAND_SIZE) gameScore += 50;
+			if (MyString.subsetOf("RUNI", word)) gameScore += 1000;
+		}
+	
 		return gameScore;
-
 	}
 
 	// Creates a random hand of length (HAND_SIZE - 2) and then inserts
