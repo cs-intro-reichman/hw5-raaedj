@@ -166,11 +166,11 @@ public class Scrabble {
 	}
 
 	public static void main(String[] args) {
-		testBuildingTheDictionary();  
-		testScrabbleScore();    
-		testCreateHands();  
-	    testPlayHands();
-		playGame();
+		//testBuildingTheDictionary();  
+		//testScrabbleScore();    
+		//testCreateHands();  
+	    //testPlayHands();
+		//playGame();
 	}
 
 	public static void testBuildingTheDictionary() {
@@ -196,8 +196,8 @@ public class Scrabble {
 	}
 	public static void testPlayHands() {
 		init();
-		//playHand("ocostrza");
-		//playHand("arbffip");
-		//playHand("aretiin");
+		playHand("ocostrza");
+		playHand("arbffip");
+		playHand("aretiin");
 	}
 }
