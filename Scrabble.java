@@ -60,53 +60,46 @@ public class Scrabble {
 	    String hand = createHand();
 		if(MyString.subsetOf(word, hand) && WORDS_FILE.contains(word.toUpperCase()) && word != ""){
 			for (int i = 0; i < word.length(); i++){
-				gameScore = 0;
+				score = 0;
 				char calculatedLetter = word.charAt(i);
 				switch (calculatedLetter) {
-					case 'a':
-					case 'e':
-					case 'i':
-					case 'l':
-					case 'n':
-					case 'o':
-					case 'r':
-					case 's':
-					case 't':
-					case 'u':
-					gameScore += 1;
-					 break;
-					case 'd':
-					case 'g':
-					gameScore += 2; 
-					break;
-					case 'b':
-					case 'c':
-					case 'm':
-					case 'p':
-					gameScore += 3;
-					 break;
-					case 'f':
-					case 'h':
-					case 'v':
-					case 'w':
-					case 'y':
-						gameScore +=4; 
-						break;
-					case 'k':
-						gameScore +=5; 
-						break;
-					case 'j':
-					case 'x':
-						gameScore +=8; 
-						break;
-					case 'q':
-					case 'z':
-						gameScore +=10; 
-					    break;
+					case 'A':
+					case 'E':
+					case 'I':
+					case 'L':
+					case 'N':
+					case 'O':
+					case 'R':
+					case 'S':
+					case 'T':
+					case 'U':
+						score +=1; break;
+					case 'D':
+					case 'G':
+						score +=2; break;
+					case 'B':
+					case 'C':
+					case 'M':
+					case 'P':
+						score +=3; break;
+					case 'F':
+					case 'H':
+					case 'V':
+					case 'W':
+					case 'Y':
+						score +=4; break;
+					case 'K':
+						score +=5; break;
+					case 'J':
+					case 'X':
+						score +=8; break;
+					case 'Q':
+					case 'Z':
+						score +=10; break;
 					default: break;
 				}
 			}
-			score = score + (gameScore * word.length());
+			gameScore = gameScore + (score * word.length());
 		   }
 		if(word.length() == HAND_SIZE) score += 50;
 		if(MyString.subsetOf("runi", word)) score += 1000;
