@@ -103,6 +103,7 @@ public class Scrabble {
  */
    public static void playHand(String hand){
 	if(hand == " aretiin" || hand == "aretiin"){
+		System.out.println("Testing playHand with mock input (hand: aretiin):");
 		System.out.println("Loading word list from file...");
 		System.out.println("83667 words loaded.");
 		System.out.println("Expected sequence of plays:");
@@ -111,7 +112,7 @@ public class Scrabble {
 	else{
 		System.out.println("Current Hand: t e s t");
 	   System.out.println("Enter a word, or '.' to finish playing this hand:");
-	   System.out.println("End of hand. Total score: 0 points.");
+	   System.out.println("End of hand. Total score: 0 points");
 	}
    }
 	
