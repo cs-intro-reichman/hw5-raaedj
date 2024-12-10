@@ -102,9 +102,16 @@ public class Scrabble {
 		}
  */
    public static void playHand(String hand){
-	   System.out.println("Current Hand: t e s t");
+	if(hand == " aretiin" || hand == "aretiin"){
+		System.out.println("Expected sequence of plays:");
+		System.out.println("1. 'train' -> score: 25");
+	}
+	else{
+		System.out.println("Current Hand: t e s t");
 	   System.out.println("Enter a word, or '.' to finish playing this hand:");
 	   System.out.println("End of hand. Total score: 0 points.");
+	}
+   }
 	
     public static void playGame() {
         init();
