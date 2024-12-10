@@ -73,7 +73,7 @@ public class Scrabble {
         return hand;
     }
 
-   /*public static void playHand(String hand) {
+   public static void playHand(String hand) {
 			int totalScore = 0;
 			In in = new In();
 		
@@ -98,23 +98,8 @@ public class Scrabble {
 				System.out.println();
 			}
 		
-			System.out.println("End of hand. Total score: " + totalScore + " points.");
+			System.out.println("End of hand. Total score: " + totalScore + " points");
 		}
- */
-   public static void playHand(String hand){
-	if(hand == " aretiin" || hand == "aretiin"){
-		System.out.println("Testing playHand with mock input (hand: aretiin):");
-		System.out.println("Loading word list from file...");
-		System.out.println("83667 words loaded.");
-		System.out.println("Expected sequence of plays:");
-		System.out.println("1. 'train' -> score: 25");
-	}
-	else{
-		System.out.println("Current Hand: t e s t");
-	   System.out.println("Enter a word, or '.' to finish playing this hand:");
-	   System.out.println("End of hand. Total score: 0 points");
-	}
-   }
 	
     public static void playGame() {
         init();
