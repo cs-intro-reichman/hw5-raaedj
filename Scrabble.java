@@ -136,9 +136,6 @@ public class Scrabble {
 			// non-whitespace characters. Whitespace is either space characters, or  
 			// end-of-line characters.
 			String input = in.readString();
-			int result1 = 0;
-			result1 += wordScore(input);
-			System.out.println("leap earned " + wordScore(input) + " points. Score: " + result1 + " points");
 			break;
 		}
 		if (hand.length() == 0) {
