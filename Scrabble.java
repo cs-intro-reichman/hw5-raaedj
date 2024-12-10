@@ -101,13 +101,11 @@ public class Scrabble {
 	public static void playHand(String hand) {
 		int totalScore = 0;
 		In in = new In();
-		hand = hand.toLowerCase().replaceAll("[^a-z]", "");
 	
 		while (!hand.isEmpty()) {
 			System.out.println("Current Hand: " + MyString.spacedString(hand));
 			System.out.println("Enter a word, or '.' to finish playing this hand:");
 			String word = in.readString().trim();
-			word = word.toLowerCase().replaceAll("[^a-z]", "");
 	
 			if (word.equals(".")) break;
 	
@@ -118,7 +116,7 @@ public class Scrabble {
 			} else {
 				int score = wordScore(word);
 				totalScore += score;
-				System.out.println(word + " -> score: " + score);
+				System.out.println(word + " earned " + score + " points. Score: " + totalScore + " points");
 				hand = MyString.remove(hand, word);
 			}
 			System.out.println();
