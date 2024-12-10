@@ -100,6 +100,7 @@ public class Scrabble {
 				}
 				gameScore = gameScore + (score * word.length());
 			}
+
 		   }
 		if(word.length() == HAND_SIZE) gameScore += 50;
 		if(MyString.subsetOf("runi", word)) gameScore += 1000;
@@ -163,9 +164,6 @@ public class Scrabble {
 			// Gets the user's input, which is all the characters entered by 
 			// the user until the user enter the ENTER character.
 			String input = in.readString();
-			if(input == "n") playHand(createHand());
-			if(input == "e") return;
-			else System.out.println("Error");
 			break;
 		}
 	}
