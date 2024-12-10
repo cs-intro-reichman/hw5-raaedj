@@ -122,7 +122,7 @@ public class Scrabble {
 			System.out.println();
 		}
 	
-		System.out.println("End of hand. Total score: " + totalScore + " points");
+		System.out.println("End of hand. Total score: " + totalScore + " points\n");
 	}
 	
     public static void playGame() {
