@@ -75,12 +75,19 @@ public class Scrabble {
     private static boolean subsetOf(String word, String hand) {
 		int[] handCount = new int[26];
 		int[] wordCount = new int[26];
-
-		for (char c : hand.toCharArray()) {
-			handCount[c - 'a']++;
+	
+		// Count letters in the hand
+		for (char c : hand.toLowerCase().toCharArray()) {
+			if (c >= 'a' && c <= 'z') { 
+				handCount[c - 'a']++;
+			}
 		}
-		for (char c : word.toCharArray()) {
-			wordCount[c - 'a']++;
+		for (char c : word.toLowerCase().toCharArray()) {
+			if (c >= 'a' && c <= 'z') { 
+				wordCount[c - 'a']++;
+			} else {
+				return false;
+			}
 		}
 		for (int i = 0; i < 26; i++) {
 			if (wordCount[i] > handCount[i]) {
@@ -89,18 +96,11 @@ public class Scrabble {
 		}
 		return true;
 	}
+	
 
    public static void playHand(String hand) {
 			int totalScore = 0;
 			In in = new In();
-		   if(hand == " a r e t i i n"){
-			 System.out.println("Testing playHand with mock input (hand: aretiin):\r\n" +
-								"Loading word list from file...\r\n" +
-								"83667 words loaded.\r\n" + //
-								"Expected sequence of plays:\r\n" + 
-								"1. 'train' -> score: 25");
-								return;
-		   }
 			while (!hand.isEmpty()) {
 				System.out.println("Current Hand: " + MyString.spacedString(hand));
 				System.out.println("Enter a word, or '.' to finish playing this hand:");
